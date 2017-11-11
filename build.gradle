@@ -11,9 +11,12 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'application'
+
+mainClassName = 'ohnana.Application'
 
 jar {
-    baseName = 'gs-spring-boot'
+    baseName = 'ohnana'
     version =  '0.1.0'
 }
 
@@ -25,15 +28,11 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    // tag::jetty[]
     compile("org.springframework.boot:spring-boot-starter-web") {
         exclude module: "spring-boot-starter-tomcat"
     }
     compile("org.springframework.boot:spring-boot-starter-jetty")
-    // end::jetty[]
-    // tag::actuator[]
     compile("org.springframework.boot:spring-boot-starter-actuator")
-    // end::actuator[]
     testCompile("junit:junit")
 }
 
