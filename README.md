@@ -9,6 +9,7 @@ The very begining of a personal project.
 WIP - TO BE REFINED
 - JDK 1.8
 - Docker (optional)
+- Gradlew wrapper: `gradle wrapper --gradle-version 2.0`
 
 ## Project management
 
@@ -17,29 +18,18 @@ WIP - TO BE REFINED
 ## Run locally
 
 **With Gradlew**:
-```
-./gradlew build run
-```
+
+Run: `./gradlew clean build run`
 
 **With Docker**:
 
-Build: `./gradlew clean build buildDocker`
-
-Run: `docker run -p 8080:8080 -t ohnana/ohnana`
-
-Stop the container:
-```
-$ docker ps
-CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS                    NAMES
-6bb016d96db6        ohnana/ohnana     "/bin/sh -c 'exec ..."   About a minute ago   Up About a minute   0.0.0.0:8080->8080/tcp   jolly_bardeen
-$ docker stop 6bb016d96db6
-```
+Run: `./gradlew runDocker`
 
 **With Docker-compose**:
 
 Highly recommended, it runs all the attached microservices of this project.
 
-Run: `docker-compose up`
+Run: `./gradlew runDockerCompose`
 
 ## Run unit test suite
 
