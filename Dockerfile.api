@@ -1,0 +1,5 @@
+FROM openjdk:8-jdk-alpine
+MAINTAINER @herveah
+EXPOSE 8080
+CMD java -jar ohnana-0.1.0.jar
+ADD build/libs/ohnana-0.1.0.jar .

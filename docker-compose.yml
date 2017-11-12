@@ -1,0 +1,9 @@
+version: '3'
+services:
+  ohnana:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    ports:
+      - "8080:8080"
+
