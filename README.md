@@ -41,10 +41,12 @@ WIP
 
 ## Endpoints
 
-TO BE TIDY AND EXTRACT SOMEWHERE ELSE
+Self-generated documentation, spin locally (or visit remotely):
+`localhost:8080/swagger-ui.html`
 
+TO BE TIDY AND EXTRACT SOMEWHERE ELSE
 ```
-curl localhost:8080
+curl localhost:8080/ohnana
 ```
 
 ## Misc sources

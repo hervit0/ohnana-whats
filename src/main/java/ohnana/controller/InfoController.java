@@ -8,17 +8,12 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 @RestController
-public class InfoController {
+public class InfoController extends BaseController {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/")
+    @RequestMapping(method = RequestMethod.GET, value = "/ohnana")
     public String index() {
         String time = ZonedDateTime.now(ZoneId.of("Europe/London")).toString();
-        return String.format("Welcome Ohnana - %s", time);
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/test")
-    public String test() {
-        return "Back to the future - are we?";
+        return String.format("Welcome Ohnana! - It's now %s", time);
     }
 
 }
