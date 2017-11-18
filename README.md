@@ -49,6 +49,15 @@ TO BE TIDY AND EXTRACT SOMEWHERE ELSE
 curl localhost:8080/ohnana
 ```
 
+## Deployment
+
+Select `Dockerfile.api` (for `Docker-compose`) if asked.
+
+```
+./gradlew buildDocker
+heroku container:push --recursive
+```
+
 ## Misc sources
 - https://spring.io/guides/gs/spring-boot/#scratch
 - https://docs.gradle.org/current/userguide/gradle_wrapper.html#sec:wrapper_generation
