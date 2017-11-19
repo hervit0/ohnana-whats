@@ -1,6 +1,6 @@
 # Ohnana
 [![Build Status](https://travis-ci.org/hahleung/ohnana-whats.svg?branch=master)](https://travis-ci.org/hahleung/ohnana-whats)
-
+[![Quality Gate](https://sonarcloud.io/api/badges/gate?key=ohnana:ohnana-whats)](https://sonarcloud.io/api/badges/gate?key=ohnana:ohnana-whats)
 
 ## Overview
 
@@ -8,10 +8,8 @@ The very begining of a personal project.
 
 ## Prerequisites
 
-WIP - TO BE REFINED
 - JDK 1.8
 - Docker (optional)
-- Gradlew wrapper: `gradle wrapper --gradle-version 2.0`
 
 ## Project management
 
@@ -44,11 +42,8 @@ WIP
 ## Endpoints
 
 Self-generated documentation, spin locally (or visit remotely):
-`localhost:8080/swagger-ui.html`
-
-TO BE TIDY AND EXTRACT SOMEWHERE ELSE
 ```
-curl localhost:8080/ohnana
+localhost:8080/swagger-ui.html
 ```
 
 ## Deployment
@@ -88,4 +83,7 @@ heroku container:push --recursive
 
 ### Travis
 `gem install travis -v 1.8.8 --no-rdoc --no-ri`
+
 `travis encrypt $(heroku auth:token) --add deploy.api_key -r hahleung/ohnana-whats`
+
+`travis encrypt MY_VAR_ENV=S3Cr3t! --add -r hahleung/ohnana-whats` => `$MY_VAR_ENV`

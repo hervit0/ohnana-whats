@@ -1,11 +1,25 @@
 language: java
+sudo: false
+install: true
+addons:
+  sonarcloud:
+    organization: hahleung-github
+    token:
+      secure: ycNgk3+dZ/XiM7FZZo1/oGYdH1WpvzIspr3ajvUdpR9zyeKJn2HyQN41lFLhPxSTw218Q6RjGGQxv09Kgd8sZ66j5faEQLYuKH5wWF2a5pCygs300JEBGD+T6Yot8iSWWYpE8ykm8xUR7gNgyhfMBxCpcI/HPnLUxFt3di8TW590bPOTtqjcVc1ESiinjBHhNDc1cO4iX8rsu20S/phQ8jO2umrTh0ltf/aINOux4hY0g5pJjVzOGph3MNIH86sd8h+jLqKOAK7V1XkeUYWbWgpxiv+Ln7QQO07OoLvKcI1LBtLnGmNRms5FdJgbkUvAxOSL3y3pKNQEt7aQqErns/q3R+1wRnUkqrEcpFF89wDg75rizu0wia+AdiMxIA2BYJVqy7I6EhkWfrcewx299VEP7lEcMUBu6+mcn1Dn/Yng7mJcNQwvVdHmpNPb/0GrHJ0gw4ZcYB0MeXEmvZjNxAMAIYl9NyMQXOnEG5khAgj6QnpWUe4GUjicaOKKq0LpL2+eHr5gSYq+/VflHdnyld/sQ+N9WGDlFq7PEjRjClJhohgsISUZ3/FTNE2xadSr+3UdmuporL1RyrOIfGzMvSt+QuTaUZUMBvXCvZ8Kl3wHc3+eQRw4tAVH4sLEAp9lJCZwN4rMtSpvD642fu5zYypvXkKJl1pEP9scdqqRdSI=
+    branches:
+    - master
+    - develop
+    - production
 jdk:
 - oraclejdk8
 jobs:
   include:
-  - stage: unit tests
+  - stage: Run unit tests
     script: skip
-  - stage: deploy to staging
+  - stage: Run code quality tool
+    script: ./gradlew sonarqube -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=hahleung-github
+      -Dsonar.login=$SONAR_TOKEN
+  - stage: Deploy to staging
     deploy:
       provider: heroku
       app:
@@ -14,3 +28,6 @@ jobs:
         secure: IImN8qcBqHzB7Nr7WnLz9z2l/JIqOlYZal1ps9DEesXCock3h7CpPzmT+yiJJNufxVuYQzCRznANSZddnsMuJ+CgtO/jTVgzakrg1FrBPzqIYwpojPnHhiZ+hHhgPMxFye5hyNB3P1geezDiJEWAZi0Z8AxkTLQJX3+5CkJS0Etdpvv7ZRhpNxQFgKMjuhhHyU0gsXugc344OBRK4WYCrx7lMmYjIfDxEv4mDBH0Rrl1yiwPOl+61pUsbvrD9ZFLuB3EA1cnK6OPidSiWoeJnM3nIQo8FDHC07ppl4rZfIhDWmQkt2F5Eutk/8Z1jf9bR+nUk+MnNfWPbd7fWbRo09UXq8Zv6qUuFmRtezDL5d0Z/QA9+4YhfelK6riNmceris9BS8zrOOZtqPd+tSuu76aOuBtJYz2v1CGdIdck30FhglTvndxXEWT+gWevqp6wLjwBNxEIudqDiTtcvg0xFnS1zrWV6pL0Bw3M7UMxCrgyh5iiWWz3SUkB7FM4cDXf99YZgnD2vneAC75PtJ8hAz5jHU4JwD0aWVneK8iumnwBKhmLYdTShAnyZpVAdlO1b521ZcLvxR8dlFdRCTpi8f949I+aFxVeRxBxxZbTk8TxQT2p6W47HfP486QjAdQCBgH8ED07PMRtk3DrxI88gQeFczBQKn9nOcReVUVM2sw=
       on:
         repo: hahleung/ohnana-whats
+env:
+  global:
+    secure: XYemp8ST4BKxY6GLUEjclZFiYFN8LdfgqEwBeCcuFXGpiCL8PPIhGq1FGgPPLc94Y5ks0DUFUKVtaubAU1cvINEmvulwGNhgrnVlXpaRKIcdN4aHPy1s5+LbRunw8YtCZFZ3ad4IxOvUxAIlSUW8l+hRcNu95GqHtT2uOrOTthb3I2LLjsoUycq6MaOxd7SS5r3KQyqVY0xHpPToWOqOQDzD5sJY7Wi5dFlYD8YJ8YrkNiOSFXktpUnY0R4pE6oBZ4YPZuwPpeXXWW9h6+bcAXkz5wlQFdbaB7SASCwC17iADcht/DDRperKsuAo/PIbQ/VmrDR7xAzDjsQfz1EGio0kAnGPVN2I19nyhi8tMvVibO3Ga7ZyLcNez2uUgrUAV6MPl3SGxNOI18XKgJ6OVhZ9kiP6Lft+qlhoSsNQyDy1Yi3Tu8zLKoyuSiLZ8XwM9vU3IxVi9edU3VTNuBIaEzI8WWD2pK5xQLkimUnOvOsu6GoWfMMeztX4yFYM/mIbOReu+hXABAGPTzxUXFfMFMAUHONmD7duNzKKqm6dIyx0JKbGdbAm1hAM1QzPLd/Xl8qQZEWWRwMD0SKvLPo1lxtOD0UKZ+1Na7sGs4jOCtFhRwYQTWPEtPZx8zCpH4JV9/2HVkDum+eBJmFDKjw68AX1uXcmZc+NezDw1llj4G4=
