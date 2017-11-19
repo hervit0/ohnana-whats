@@ -1,0 +1,16 @@
+language: java
+jdk:
+- oraclejdk8
+jobs:
+  include:
+  - stage: unit tests
+    script: skip
+  - stage: deploy to staging
+    deploy:
+      provider: heroku
+      app:
+        master: ohnana-staging
+      api_key:
+        secure: IImN8qcBqHzB7Nr7WnLz9z2l/JIqOlYZal1ps9DEesXCock3h7CpPzmT+yiJJNufxVuYQzCRznANSZddnsMuJ+CgtO/jTVgzakrg1FrBPzqIYwpojPnHhiZ+hHhgPMxFye5hyNB3P1geezDiJEWAZi0Z8AxkTLQJX3+5CkJS0Etdpvv7ZRhpNxQFgKMjuhhHyU0gsXugc344OBRK4WYCrx7lMmYjIfDxEv4mDBH0Rrl1yiwPOl+61pUsbvrD9ZFLuB3EA1cnK6OPidSiWoeJnM3nIQo8FDHC07ppl4rZfIhDWmQkt2F5Eutk/8Z1jf9bR+nUk+MnNfWPbd7fWbRo09UXq8Zv6qUuFmRtezDL5d0Z/QA9+4YhfelK6riNmceris9BS8zrOOZtqPd+tSuu76aOuBtJYz2v1CGdIdck30FhglTvndxXEWT+gWevqp6wLjwBNxEIudqDiTtcvg0xFnS1zrWV6pL0Bw3M7UMxCrgyh5iiWWz3SUkB7FM4cDXf99YZgnD2vneAC75PtJ8hAz5jHU4JwD0aWVneK8iumnwBKhmLYdTShAnyZpVAdlO1b521ZcLvxR8dlFdRCTpi8f949I+aFxVeRxBxxZbTk8TxQT2p6W47HfP486QjAdQCBgH8ED07PMRtk3DrxI88gQeFczBQKn9nOcReVUVM2sw=
+      on:
+        repo: hahleung/ohnana-whats

@@ -1,4 +1,6 @@
 # Ohnana
+[![Build Status](https://travis-ci.org/hahleung/ohnana-whats.svg?branch=master)](https://travis-ci.org/hahleung/ohnana-whats)
+
 
 ## Overview
 
@@ -51,6 +53,21 @@ curl localhost:8080/ohnana
 
 ## Deployment
 
+A CI/CD strategy is in place, the deployment is self-documentated in `.travis.yml`.
+
+`develop` is constantly built on changes, but not remotely deployed.
+
+These branches are built and remotely deployed on changes:
+- `master` built to the `staging` environment
+- `prod` built to the `production` environment (WIP)
+
+Statuses:
+- `develop`: [![Build Status](https://travis-ci.org/hahleung/ohnana-whats.svg?branch=develop)](https://travis-ci.org/hahleung/ohnana-whats)
+- `master`: [![Build Status](https://travis-ci.org/hahleung/ohnana-whats.svg?branch=master)](https://travis-ci.org/hahleung/ohnana-whats)
+- `prod`: WIP
+
+_DEPRECATED:_
+
 Select `Dockerfile.api` (for `Docker-compose`) if asked.
 
 ```
@@ -59,8 +76,16 @@ heroku container:push --recursive
 ```
 
 ## Misc sources
+
+### Spring
 - https://spring.io/guides/gs/spring-boot/#scratch
 - https://docs.gradle.org/current/userguide/gradle_wrapper.html#sec:wrapper_generation
+
+### Docker
 - https://spring.io/guides/gs/spring-boot-docker/
 - http://www.baeldung.com/dockerizing-spring-boot-application
 - https://docs.docker.com/compose/compose-file/
+
+### Travis
+`gem install travis -v 1.8.8 --no-rdoc --no-ri`
+`travis encrypt $(heroku auth:token) --add deploy.api_key -r hahleung/ohnana-whats`
