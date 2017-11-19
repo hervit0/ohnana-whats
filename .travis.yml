@@ -1,6 +1,11 @@
 language: java
 sudo: false
 install: true
+branches:
+  only:
+  - master
+  - develop
+  - prod
 addons:
   sonarcloud:
     organization: hahleung-github
@@ -9,7 +14,7 @@ addons:
     branches:
     - master
     - develop
-    - production
+    - prod
 jdk:
 - oraclejdk8
 jobs:

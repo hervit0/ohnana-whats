@@ -9,11 +9,15 @@ The very begining of a personal project.
 ## Prerequisites
 
 - JDK 1.8
-- Docker (optional)
+- Docker (optional - only for local purposes)
 
 ## Project management
 
-[Trello board](https://trello.com/b/J03PJN1p)
+[See trello board](https://trello.com/b/J03PJN1p)
+
+## Architecture overview
+
+[See architecture overview](https://github.com/hahleung/ohnana-whats/wiki/Architecture)
 
 ## Run locally
 
@@ -48,7 +52,7 @@ localhost:8080/swagger-ui.html
 
 ## Deployment
 
-A CI/CD strategy is in place, the deployment is self-documentated in `.travis.yml`.
+A CI/CD strategy is in place.
 
 `develop` is constantly built on changes, but not remotely deployed.
 
@@ -72,18 +76,5 @@ heroku container:push --recursive
 
 ## Misc sources
 
-### Spring
-- https://spring.io/guides/gs/spring-boot/#scratch
-- https://docs.gradle.org/current/userguide/gradle_wrapper.html#sec:wrapper_generation
+[See used documentation](https://github.com/hahleung/ohnana-whats/wiki/Documentation)
 
-### Docker
-- https://spring.io/guides/gs/spring-boot-docker/
-- http://www.baeldung.com/dockerizing-spring-boot-application
-- https://docs.docker.com/compose/compose-file/
-
-### Travis
-`gem install travis -v 1.8.8 --no-rdoc --no-ri`
-
-`travis encrypt $(heroku auth:token) --add deploy.api_key -r hahleung/ohnana-whats`
-
-`travis encrypt MY_VAR_ENV=S3Cr3t! --add -r hahleung/ohnana-whats` => `$MY_VAR_ENV`

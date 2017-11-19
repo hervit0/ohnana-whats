@@ -12,7 +12,7 @@ public class Application {
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(Application.class);
 
-        Map<String, Object> server = new HashMap<String, Object>();
+        Map<String, Object> server = new HashMap();
         server.put("SERVER_PORT", System.getenv("PORT"));
 
         app.setDefaultProperties(server);
