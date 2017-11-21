@@ -1,10 +1,10 @@
 # Ohnana
 [![Build Status](https://travis-ci.org/hahleung/ohnana-whats.svg?branch=master)](https://travis-ci.org/hahleung/ohnana-whats)
-[![Quality Gate](https://sonarcloud.io/api/badges/gate?key=ohnana:ohnana-whats)](https://sonarcloud.io/api/badges/gate?key=ohnana:ohnana-whats)
+[![Quality Gate](https://sonarcloud.io/api/badges/gate?key=ohnana:ohnana-whats)](https://sonarcloud.io/dashboard?id=ohnana%3Aohnana-whats)
 
 ## Overview
 
-The very begining of a personal project.
+Ohnana, what's... ?
 
 ## Prerequisites
 
