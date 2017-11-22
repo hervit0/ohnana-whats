@@ -8,7 +8,6 @@ import java.util.Map;
 
 @SpringBootApplication
 public class Application {
-
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(Application.class);
 
@@ -18,5 +17,4 @@ public class Application {
         app.setDefaultProperties(server);
         app.run(args);
     }
-
 }

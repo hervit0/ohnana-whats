@@ -7,9 +7,11 @@ buildscript {
         }
     }
     dependencies {
-        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.5.8.RELEASE')
-        classpath('se.transmode.gradle:gradle-docker:1.2')
-        classpath('org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.1')
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.8.RELEASE'
+        classpath 'se.transmode.gradle:gradle-docker:1.2'
+        classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.1'
+        classpath 'io.franzbecker:gradle-lombok:1.10'
+//        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.2'
     }
 }
 
@@ -17,10 +19,18 @@ group = 'ohnana'
 
 apply plugin: 'java'
 apply plugin: 'idea'
-apply plugin: 'org.springframework.boot'
 apply plugin: 'application'
 apply plugin: 'docker'
+apply plugin: 'io.franzbecker.gradle-lombok'
+apply plugin: 'org.springframework.boot'
 apply plugin: 'org.sonarqube'
+//apply plugin: 'org.junit.platform.gradle.plugin'
+
+compileTestJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    options.compilerArgs += '-parameters'
+}
 
 sonarqube {
     properties {
@@ -44,6 +54,16 @@ repositories {
     mavenCentral()
 }
 
+//junitPlatform {
+//    filters {
+//        engines {
+//        }
+//        tags {
+//            exclude 'slow'
+//        }
+//    }
+//}
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -55,6 +75,13 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-actuator'
 
     compile 'io.sentry:sentry-spring:1.6.3'
+    compile 'org.projectlombok:lombok:1.16.18'
+
+//    testCompile 'org.junit.jupiter:junit-jupiter-api:5.0.2'
+//    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.0.2'
+//    testRuntime 'org.junit.jupiter:junit-jupiter-params:5.0.2'
+//    testRuntime 'org.junit.platform:junit-platform-launcher:1.0.2'
+//    testCompileOnly 'org.apiguardian:apiguardian-api:1.0.0'
 }
 
 task buildDocker(type: Docker, dependsOn: build) {

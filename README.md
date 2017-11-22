@@ -15,9 +15,11 @@ Ohnana, what's... ?
 
 [See trello board](https://trello.com/b/J03PJN1p)
 
-## Architecture overview
+## Architecture/Technologies overview
 
-[See architecture overview](https://github.com/hahleung/ohnana-whats/wiki/Architecture)
+[See architecture overview](https://github.com/hervit0/ohnana-whats/wiki/Architecture)
+
+[See technologies overview](https://github.com/hervit0/ohnana-whats/wiki/Technologies)
 
 ## Run locally
 
@@ -50,31 +52,29 @@ Self-generated documentation, spin locally (or visit remotely):
 localhost:8080/swagger-ui.html
 ```
 
+```
+curl -X POST \
+  http://localhost:8080/api/v1/session \
+  -H 'content-type: application/json' \
+  -d '{
+	"players": [
+		{ "name": "hervito", "id": 1, "order": 1, "team": 1 }
+	]
+}'
+```
+
 ## Deployment
-
-A CI/CD strategy is in place.
-
-`develop` is constantly built on changes, but not remotely deployed.
-
-These branches are built and remotely deployed on changes:
-- `master` built to the `staging` environment
-- `prod` built to the `production` environment (WIP)
 
 Statuses:
 - `develop`: [![Build Status](https://travis-ci.org/hahleung/ohnana-whats.svg?branch=develop)](https://travis-ci.org/hahleung/ohnana-whats)
 - `master`: [![Build Status](https://travis-ci.org/hahleung/ohnana-whats.svg?branch=master)](https://travis-ci.org/hahleung/ohnana-whats)
 - `prod`: WIP
 
-_DEPRECATED:_
-
-Select `Dockerfile.api` (for `Docker-compose`) if asked.
-
-```
-./gradlew buildDocker
-heroku container:push --recursive
-```
+[See more about the CI/CD strategy in place](https://github.com/hervit0/ohnana-whats/wiki/Continuous-Integration)
 
 ## Misc sources
 
-[See used documentation](https://github.com/hahleung/ohnana-whats/wiki/Documentation)
+[See used documentation](https://github.com/hervit0/ohnana-whats/wiki/Documentation)
+
+[Troubleshooting!](https://github.com/hervit0/ohnana-whats/wiki/Troubleshooting)
 
