@@ -1,3 +1,12 @@
+ext.versions = [
+    springfox: "2.7.0",
+    sentry: "1.6.3",
+    lombok: "1.16.18",
+    junitPlatform: "1.0.2",
+    junitJupiter: "5.0.2",
+    apiGuardian: "1.0.0"
+]
+
 buildscript {
     repositories {
         jcenter()
@@ -6,47 +15,14 @@ buildscript {
             url "https://plugins.gradle.org/m2/"
         }
     }
+
     dependencies {
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.8.RELEASE'
-        classpath 'se.transmode.gradle:gradle-docker:1.2'
-        classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.1'
-        classpath 'io.franzbecker:gradle-lombok:1.10'
-//        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.2'
+        classpath "org.junit.platform:junit-platform-gradle-plugin:1.0.2"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.5.8.RELEASE"
+        classpath "se.transmode.gradle:gradle-docker:1.2"
+        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.1"
+        classpath "io.franzbecker:gradle-lombok:1.10"
     }
-}
-
-group = 'ohnana'
-
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'application'
-apply plugin: 'docker'
-apply plugin: 'io.franzbecker.gradle-lombok'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'org.sonarqube'
-//apply plugin: 'org.junit.platform.gradle.plugin'
-
-compileTestJava {
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
-    options.compilerArgs += '-parameters'
-}
-
-sonarqube {
-    properties {
-        property 'sonar.projectName', 'ohnana-whats'
-        property 'sonar.projectDescription', 'Ohnana Project - Sonar'
-        property 'sonar.projectKey', 'ohnana:ohnana-whats'
-        property "sonar.sources", "src"
-        property "sonar.sourceEncoding", "UTF-8"
-    }
-}
-
-mainClassName = 'ohnana.Application'
-
-jar {
-    baseName = 'ohnana'
-    version =  '0.1.0'
 }
 
 repositories {
@@ -54,39 +30,72 @@ repositories {
     mavenCentral()
 }
 
-//junitPlatform {
-//    filters {
-//        engines {
-//        }
-//        tags {
-//            exclude 'slow'
-//        }
-//    }
-//}
+group = "ohnana"
+
+apply plugin: "java"
+apply plugin: "idea"
+apply plugin: "application"
+apply plugin: "docker"
+apply plugin: "io.franzbecker.gradle-lombok"
+apply plugin: "org.springframework.boot"
+apply plugin: "org.sonarqube"
+apply plugin: "org.junit.platform.gradle.plugin"
+
+sonarqube {
+    properties {
+        property "sonar.projectName", "ohnana-whats"
+        property "sonar.projectDescription", "Ohnana Project - Sonar"
+        property "sonar.projectKey", "ohnana:ohnana-whats"
+        property "sonar.sources", "src"
+        property "sonar.sourceEncoding", "UTF-8"
+    }
+}
+
+mainClassName = "ohnana.Application"
+
+jar {
+    baseName = "ohnana"
+    version =  "0.1.0"
+}
+
+compileTestJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    options.compilerArgs += "-parameters"
+}
+
+junitPlatform {
+    filters {
+        engines {
+        }
+        tags {
+            exclude "slow"
+        }
+    }
+}
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
-    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
+    compile group: "io.springfox", name: "springfox-swagger2", version: "${versions.springfox}"
+    compile group: "io.springfox", name: "springfox-swagger-ui", version: "${versions.springfox}"
 
-    compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.springframework.boot:spring-boot-starter-actuator'
+    compile "org.springframework.boot:spring-boot-starter-web"
+    compile "org.springframework.boot:spring-boot-starter-actuator"
 
-    compile 'io.sentry:sentry-spring:1.6.3'
-    compile 'org.projectlombok:lombok:1.16.18'
+    compile "io.sentry:sentry-spring:${versions.sentry}"
+    compile "org.projectlombok:lombok:${versions.lombok}"
 
-//    testCompile 'org.junit.jupiter:junit-jupiter-api:5.0.2'
-//    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.0.2'
-//    testRuntime 'org.junit.jupiter:junit-jupiter-params:5.0.2'
-//    testRuntime 'org.junit.platform:junit-platform-launcher:1.0.2'
-//    testCompileOnly 'org.apiguardian:apiguardian-api:1.0.0'
+    testCompile("org.junit.jupiter:junit-jupiter-api:${versions.junitJupiter}")
+    testCompileOnly("org.apiguardian:apiguardian-api:${versions.apiGuardian}")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:${versions.junitJupiter}")
+    testRuntime("org.junit.platform:junit-platform-launcher:${versions.junitPlatform}")
 }
 
 task buildDocker(type: Docker, dependsOn: build) {
     applicationName = jar.baseName
-    dockerfile = file('Dockerfile')
+    dockerfile = file("Dockerfile")
     doFirst {
         copy {
             from jar
@@ -96,25 +105,25 @@ task buildDocker(type: Docker, dependsOn: build) {
 }
 
 task stopDocker(type: Exec) {
-    workingDir '.'
-    executable './scripts/stop_docker.sh'
+    workingDir "."
+    executable "./scripts/stop_docker.sh"
 }
 
 task runDocker(type: Exec) {
     dependsOn clean, buildDocker
-    workingDir '.'
-    executable './scripts/run_docker.sh'
+    workingDir "."
+    executable "./scripts/run_docker.sh"
     finalizedBy stopDocker
 }
 
 task stopDockerCompose(type: Exec) {
-    workingDir '.'
-    executable './scripts/stop_docker_compose.sh'
+    workingDir "."
+    executable "./scripts/stop_docker_compose.sh"
 }
 
 task runDockerCompose(type: Exec) {
     dependsOn clean, buildDocker
-    workingDir '.'
-    executable './scripts/run_docker_compose.sh'
+    workingDir "."
+    executable "./scripts/run_docker_compose.sh"
     finalizedBy stopDockerCompose
 }
