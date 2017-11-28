@@ -1,5 +1,5 @@
 # Ohnana
-[![Build Status](https://travis-ci.org/hahleung/ohnana-whats.svg?branch=master)](https://travis-ci.org/hahleung/ohnana-whats)
+[![Build Status](https://travis-ci.org/hervit0/ohnana-whats.svg?branch=master)](https://travis-ci.org/hervit0/ohnana-whats)
 [![Quality Gate](https://sonarcloud.io/api/badges/gate?key=ohnana:ohnana-whats)](https://sonarcloud.io/dashboard?id=ohnana%3Aohnana-whats)
 
 ## Overview
@@ -66,8 +66,8 @@ curl -X POST \
 ## Deployment
 
 Statuses:
-- `develop`: [![Build Status](https://travis-ci.org/hahleung/ohnana-whats.svg?branch=develop)](https://travis-ci.org/hahleung/ohnana-whats)
-- `master`: [![Build Status](https://travis-ci.org/hahleung/ohnana-whats.svg?branch=master)](https://travis-ci.org/hahleung/ohnana-whats)
+- `develop`: [![Build Status](https://travis-ci.org/hervit0/ohnana-whats.svg?branch=develop)](https://travis-ci.org/hervit0/ohnana-whats)
+- `master`: [![Build Status](https://travis-ci.org/hervit0/ohnana-whats.svg?branch=master)](https://travis-ci.org/hervit0/ohnana-whats)
 - `prod`: WIP
 
 [See more about the CI/CD strategy in place](https://github.com/hervit0/ohnana-whats/wiki/Continuous-Integration)

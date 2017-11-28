@@ -22,10 +22,9 @@ addons:
 jobs:
   include:
   - stage: Run unit tests
-    script: skip
+    script: "./gradlew test"
   - stage: Run code quality tool
-    script: "./gradlew sonarqube -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=hahleung-github
-      -Dsonar.login=$SONAR_TOKEN"
+    script: skip
   - stage: Deploy to staging
     deploy:
       provider: heroku
@@ -34,7 +33,7 @@ jobs:
       api_key:
         secure: YoU/LXh2QN5w0k8q86znXvZXITDz29FtQV/3XStgTrkdoee9bhy+GdhTShwGSh39zh60TeO+PclPXCwQDRyERDCrP7nje/m0NUAZEjvJKZK66b3+e6bnVI5/fuBHLCGoq8dhBvP2rYYhxvj3FDRc8mRkm9KFEg1vp3kjh6hJSBfsBfi22WCAJuMlPYhPm1kuK1Rm7Yf7+yFlXdDgNdykaM20cQ8TPp5hHLxX2UIdcUPmtNsHBiBvQL9tAFqIxz0aQDMAGi46/3EI7l5mH1B1fOIWIZm0nRgrmKFLImpEss8lJsD0Bj7bd1vKE3mXjMGBWv60OHOe7e4trsBzrl784kTSTDfoSJJNTXeVK70R4L10ZEi2IAEDse0Neb9jhtNGeKb8UkPcfS33BkhFTBVli6+rI7rhVvjbUtuXq8W4uLY7lusVP1qJRL8eBWkTH4pNcJFUnK1x1sG8lzKJDBwtyKyhZzjBnjJ+23X2ZgGxhe+BjQt/FavbVbcc2MfK522BcjhCwtkAWJL5EX1RC9fGSf/SqjIELNDuZaULuQOaT1MIyo/niHaR5unrdhzwQDU32BSNLleV/w6ajTOkLbKA4HlxL4ZJQ9nyeAyRhG2AQGrvf/207jPuXobOEGXXW7wUtUBfriYtAKPG7Cu+X0PmR7oUOmy4yeq05Hs1OG3RL64=
       on:
-        repo: hahleung/ohnana-whats
+        repo: hervit0/ohnana-whats
 
 env:
   global:
