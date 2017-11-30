@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 @RestController
 public class SessionController extends BaseController {
+    public static final AtomicLong globalCounter = new AtomicLong();
 
     @RequestMapping(method = RequestMethod.POST, value = "/session")
     public ApiResponse<Session> create(@RequestBody SessionApiRequest request) {

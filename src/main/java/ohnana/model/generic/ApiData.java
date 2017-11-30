@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import ohnana.service.SessionService;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @AllArgsConstructor
@@ -15,12 +14,12 @@ public class ApiData<T> {
     private int id;
     private T attributes;
 
-    public static <T> ApiData<T> createData(T classType) {
+    public static <T extends AttributeInterface<T>> ApiData<T> createData(T classType) {
         Class<T> classTypeName = (Class<T>) classType.getClass();
 
         return ApiData.<T>builder()
                 .type(classTypeName.getSimpleName())
-                .id(SessionService.getSillyId())
+                .id(classType.getId())
                 .attributes(classType)
                 .build();
     }

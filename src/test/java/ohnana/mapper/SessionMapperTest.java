@@ -5,7 +5,6 @@ import ohnana.factory.SessionApiRequestFactory;
 import ohnana.model.Player;
 import ohnana.model.Session;
 import ohnana.model.SessionApiRequest;
-import ohnana.model.SessionApiResponse;
 import ohnana.model.generic.ApiResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,18 +33,18 @@ public class SessionMapperTest {
         ApiResponse<Session> response = SessionMapper.map(request);
 
         // Assert
-//        Player responsePlayer = response.getData().getAttributes().getPlayers().get(0);
+        Player responsePlayer = response.getData().getAttributes().getPlayers().get(0);
 //        assertEquals(DEFAULT_ID, responsePlayer.getId());
-//        assertEquals(DEFAULT_NAME, responsePlayer.getName());
-//        assertEquals(DEFAULT_ORDER, responsePlayer.getOrder());
-//        assertEquals(DEFAULT_TEAM, responsePlayer.getTeam());
+        assertEquals(DEFAULT_NAME, responsePlayer.getName());
+        assertEquals(DEFAULT_ORDER, responsePlayer.getOrder());
+        assertEquals(DEFAULT_TEAM, responsePlayer.getTeam());
     }
 
     @Test
     @DisplayName("#map - returns an ApiResponse id")
     public void map_whenCalled_returnsApiResponseId() {
         // Arrange
-        SessionApiRequest request = SessionApiRequestFactory.create();
+        SessionApiRequest request = SessionApiRequestFactory.createDefault();
 
         // Act
         ApiResponse<Session> response = SessionMapper.map(request);
@@ -63,6 +62,6 @@ public class SessionMapperTest {
         ApiResponse<Session> response = SessionMapper.map(request);
 
         // Assert
-//        assertEquals(numberOfPlayers, response.getData().getPlayers().size());
+        assertEquals(numberOfPlayers, response.getData().getAttributes().getPlayers().size());
     }
 }

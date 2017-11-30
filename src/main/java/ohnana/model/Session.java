@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ohnana.model.generic.ApiResponse;
+import ohnana.model.generic.AttributeInterface;
 
 import java.util.List;
 
@@ -12,7 +13,8 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Session {
+public class Session implements AttributeInterface<Session> {
+    private int id;
     private String text;
     private List<Player> players;
 

@@ -10,9 +10,9 @@ import lombok.Data;
 @Data
 @Builder
 public class ApiResponse<T> {
-    private ApiData data;
+    private ApiData<T> data;
 
-    public static <T> ApiResponse<T> createApiResponse(T classType) {
+    public static <T extends AttributeInterface<T>> ApiResponse<T> createApiResponse(T classType) {
         return ApiResponse.<T>builder()
                 .data(ApiData.createData(classType))
                 .build();

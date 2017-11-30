@@ -7,8 +7,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class SessionApiRequestFactory {
-    public static SessionApiRequest create() {
-       return SessionApiRequest.builder().build();
+    public static SessionApiRequest createDefault() {
+       return SessionApiRequest.builder()
+               .players(PlayerFactory.createMultiple(1))
+               .build();
     }
 
     public static SessionApiRequest create(List<Player> players) {

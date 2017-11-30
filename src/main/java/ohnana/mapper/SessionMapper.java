@@ -5,10 +5,13 @@ import ohnana.model.SessionApiRequest;
 import ohnana.model.generic.ApiResponse;
 import ohnana.service.SessionService;
 
+import static ohnana.controller.SessionController.globalCounter;
+
 public class SessionMapper {
     public static ApiResponse<Session> map(SessionApiRequest request) {
         Session session = Session.builder()
-                .players(request.getPlayers())
+                .id((int)globalCounter.getAndIncrement())
+                .players(PlayerMapper.map(request.getPlayers()))
                 .text(SessionService.getTimeText())
                 .build();
 
