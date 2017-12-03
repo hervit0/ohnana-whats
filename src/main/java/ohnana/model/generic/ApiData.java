@@ -11,7 +11,7 @@ import lombok.Data;
 @Builder
 public class ApiData<T> {
     private String type;
-    private int id;
+    private Long id;
     private T attributes;
 
     public static <T extends AttributeInterface<T>> ApiData<T> createData(T classType) {

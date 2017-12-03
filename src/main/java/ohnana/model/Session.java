@@ -7,15 +7,24 @@ import lombok.NoArgsConstructor;
 import ohnana.model.generic.ApiResponse;
 import ohnana.model.generic.AttributeInterface;
 
+import javax.persistence.*;
 import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "session")
 public class Session implements AttributeInterface<Session> {
-    private int id;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column(name = "session_id")
+    private Long id;
+
     private String text;
+
+    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Player> players;
 
     public ApiResponse<Session> createSessionApiResponse() {
