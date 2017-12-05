@@ -1,5 +1,6 @@
 package ohnana.mapper;
 
+import lombok.Data;
 import ohnana.model.Session;
 import ohnana.model.SessionApiRequest;
 import ohnana.model.generic.ApiResponse;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 import static ohnana.controller.SessionController.globalCounter;
 
 @Component
+@Data
 public class SessionMapper {
     private SessionRepository sessionRepository;
     private PlayerMapper playerMapper;

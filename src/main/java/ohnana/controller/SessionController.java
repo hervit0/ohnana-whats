@@ -15,26 +15,29 @@ import org.springframework.web.bind.annotation.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
-@EnableJpaRepositories(basePackages = "ohnana.persistence")
-@EnableAutoConfiguration
+//@EnableJpaRepositories(basePackages = "ohnana.persistence")
+//@EnableAutoConfiguration
 public class SessionController extends BaseController {
     public static final AtomicLong globalCounter = new AtomicLong();
 
     @Autowired
-    private SessionRepository sessionRepository;
+    public SessionRepository sessionRepository;
     @Autowired
-    private PlayerRepository playerRepository;
-
-    private PlayerMapper playerMapper = new PlayerMapper(playerRepository);
-    private SessionMapper sessionMapper = new SessionMapper(sessionRepository, playerMapper);
+    public PlayerRepository playerRepository;
 
     @RequestMapping(method = RequestMethod.POST, value = "/session")
     public ApiResponse<Session> create(@RequestBody SessionApiRequest request) {
+        PlayerMapper playerMapper = new PlayerMapper(playerRepository);
+        SessionMapper sessionMapper = new SessionMapper(sessionRepository, playerMapper);
+
         return sessionMapper.map(request);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/session/{id}")
     public ApiResponse<Session> get(@RequestParam Long id) {
+        PlayerMapper playerMapper = new PlayerMapper(playerRepository);
+        SessionMapper sessionMapper = new SessionMapper(sessionRepository, playerMapper);
+
         return sessionMapper.get(id);
     }
 }

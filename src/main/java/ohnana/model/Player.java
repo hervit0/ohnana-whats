@@ -16,17 +16,18 @@ import javax.persistence.*;
 @Table(name = "player")
 public class Player implements AttributeInterface<Player> {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "player_id")
     private Long id;
 
     private String name;
 
+    @Column(name = "player_order")
     private int order;
 
     private int team;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "session_id")
     private Session session;
 }

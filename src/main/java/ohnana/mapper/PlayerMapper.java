@@ -1,5 +1,7 @@
 package ohnana.mapper;
 
+import com.sun.prism.shader.Solid_TextureYV12_AlphaTest_Loader;
+import lombok.Data;
 import ohnana.model.Player;
 import ohnana.persistence.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import java.util.stream.Collectors;
 import static ohnana.controller.SessionController.globalCounter;
 
 @Component
+@Data
 public class PlayerMapper {
     private PlayerRepository playerRepository;
 

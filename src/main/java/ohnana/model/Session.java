@@ -18,13 +18,13 @@ import java.util.List;
 @Table(name = "session")
 public class Session implements AttributeInterface<Session> {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "session_id")
     private Long id;
 
     private String text;
 
-    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL)
     private List<Player> players;
 
     public ApiResponse<Session> createSessionApiResponse() {
