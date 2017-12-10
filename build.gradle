@@ -4,7 +4,8 @@ ext.versions = [
     lombok: "1.16.18",
     junitPlatform: "1.0.2",
     junitJupiter: "5.0.2",
-    apiGuardian: "1.0.0"
+    apiGuardian: "1.0.0",
+    mockito: "1.8.4"
 ]
 
 buildscript {
@@ -91,6 +92,7 @@ dependencies {
     compile "io.sentry:sentry-spring:${versions.sentry}"
     compile "org.projectlombok:lombok:${versions.lombok}"
 
+    testCompile("org.mockito:mockito-all:${versions.mockito}")
     testCompile("org.junit.jupiter:junit-jupiter-api:${versions.junitJupiter}")
     testCompileOnly("org.apiguardian:apiguardian-api:${versions.apiGuardian}")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:${versions.junitJupiter}")

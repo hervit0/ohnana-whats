@@ -2,19 +2,40 @@ package ohnana.controller;
 
 import ohnana.factory.PlayerFactory;
 import ohnana.factory.SessionApiRequestFactory;
+import ohnana.factory.SessionFactory;
 import ohnana.model.Player;
 import ohnana.model.Session;
 import ohnana.model.SessionApiRequest;
 import ohnana.model.generic.ApiResponse;
+import ohnana.persistence.SessionRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import java.util.ArrayList;
 
 import static ohnana.factory.PlayerFactory.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.when;
 
 public class SessionControllerTest {
+    @InjectMocks
     private SessionController subject = new SessionController();
+
+    @Mock
+    SessionRepository sessionRepository;
+
+    @BeforeEach
+    public void setUp()
+    {
+        MockitoAnnotations.initMocks(this);
+        Session mockSession = SessionFactory.createDefault();
+        when(sessionRepository.save(any(Session.class))).thenReturn(mockSession);
+    }
 
     @Test
     @DisplayName(".create - empty request triggers error")
@@ -47,7 +68,6 @@ public class SessionControllerTest {
 
         // Assert
         assertEquals("Session", response.getData().getType());
-        assertNotNull(response.getData().getId());
     }
 
     @Test

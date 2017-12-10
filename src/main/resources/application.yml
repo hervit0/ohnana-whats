@@ -1,0 +1,16 @@
+spring:
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        initialize: true
+        username: springboot
+        password: password
+        url: jdbc:postgresql://localhost:5432/db_ohnana
+    jpa:
+        hibernate:
+            ddl-auto: none
+        show-sql: true
+    output:
+        ansi:
+            enabled: ALWAYS
+    profiles:
+        active: development

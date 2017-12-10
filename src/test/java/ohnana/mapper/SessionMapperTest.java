@@ -30,27 +30,13 @@ public class SessionMapperTest {
         SessionApiRequest request = SessionApiRequestFactory.create(player);
 
         // Act
-        ApiResponse<Session> response = SessionMapper.map(request);
+        Session session = SessionMapper.map(request);
 
         // Assert
-        Player responsePlayer = response.getData().getAttributes().getPlayers().get(0);
-//        assertEquals(DEFAULT_ID, responsePlayer.getId());
+        Player responsePlayer = session.getPlayers().get(0);
         assertEquals(DEFAULT_NAME, responsePlayer.getName());
         assertEquals(DEFAULT_ORDER, responsePlayer.getOrder());
         assertEquals(DEFAULT_TEAM, responsePlayer.getTeam());
-    }
-
-    @Test
-    @DisplayName("#map - returns an ApiResponse id")
-    public void map_whenCalled_returnsApiResponseId() {
-        // Arrange
-        SessionApiRequest request = SessionApiRequestFactory.createDefault();
-
-        // Act
-        ApiResponse<Session> response = SessionMapper.map(request);
-
-        // Assert
-        assertNotNull(response.getData().getId());
     }
 
     private void assertNumberOfPlayers(int numberOfPlayers) {
@@ -59,9 +45,9 @@ public class SessionMapperTest {
         SessionApiRequest request = SessionApiRequestFactory.create(players);
 
         // Act
-        ApiResponse<Session> response = SessionMapper.map(request);
+        Session response = SessionMapper.map(request);
 
         // Assert
-        assertEquals(numberOfPlayers, response.getData().getAttributes().getPlayers().size());
+        assertEquals(numberOfPlayers, response.getPlayers().size());
     }
 }

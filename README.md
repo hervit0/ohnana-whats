@@ -26,12 +26,17 @@ Ohnana, what's... ?
 **With Gradlew**:
 
 Run: `./gradlew clean build run`
+Run without test: `./gradlew clean build run -x test`
 
 **With Docker**:
+
+[DEPRECATED FOR NOW]
 
 Run: `./gradlew runDocker`
 
 **With Docker-compose**:
+
+[DEPRECATED FOR NOW]
 
 Highly recommended, it runs all the attached microservices of this project.
 
@@ -39,11 +44,11 @@ Run: `./gradlew runDockerCompose`
 
 ## Run unit test suite
 
-WIP
+Run: `./gradlew test`
 
 ## Run BDD test suite
 
-WIP
+[WIP]
 
 ## Endpoints
 

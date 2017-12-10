@@ -1,43 +1,26 @@
 package ohnana.mapper;
 
-import com.sun.prism.shader.Solid_TextureYV12_AlphaTest_Loader;
 import lombok.Data;
 import ohnana.model.Player;
-import ohnana.persistence.PlayerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static ohnana.controller.SessionController.globalCounter;
-
 @Component
 @Data
 public class PlayerMapper {
-    private PlayerRepository playerRepository;
-
-    public PlayerMapper(PlayerRepository playerRepository) {
-        this.playerRepository = playerRepository;
-    }
-
-    public List<Player> map(List<Player> requestPlayers) {
+    public static List<Player> map(List<Player> requestPlayers) {
         return requestPlayers.stream()
-                .map(this::map)
+                .map(PlayerMapper::map)
                 .collect(Collectors.toList());
     }
 
-    private Player map(Player requestPlayer) {
-        Player player = Player.builder()
-                .id(globalCounter.getAndIncrement())
+    private static Player map(Player requestPlayer) {
+        return Player.builder()
                 .name(requestPlayer.getName())
                 .team(requestPlayer.getTeam())
                 .order(requestPlayer.getOrder())
                 .build();
-
-        playerRepository.save(player);
-
-        return player;
     }
 }

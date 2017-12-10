@@ -1,0 +1,16 @@
+spring:
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        initialize: true
+        username: ${DB_USERNAME}
+        password: ${DB_PASSWORD}
+        url: ${DATABASE_URL}
+    jpa:
+        hibernate:
+            ddl-auto: none
+        show-sql: true
+    output:
+        ansi:
+            enabled: ALWAYS
+    profiles:
+        active: production
