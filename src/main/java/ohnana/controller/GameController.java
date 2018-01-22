@@ -28,7 +28,7 @@ public class GameController extends BaseController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/game/{gameId}")
-    public ApiResponse<Game> get(@RequestParam UUID gameId) {
+    public ApiResponse<Game> get(@PathVariable("gameId") UUID gameId) {
         Game game = gameRepository.findOne(gameId);
         return ApiResponse.createApiResponse(game);
     }

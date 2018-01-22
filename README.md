@@ -26,21 +26,12 @@ Ohnana, what's... ?
 **With Gradlew**:
 
 Run: `./gradlew clean build run`
+
 Run without test: `./gradlew clean build run -x test`
-
-**With Docker**:
-
-[DEPRECATED FOR NOW]
-
-Run: `./gradlew runDocker`
 
 **With Docker-compose**:
 
-[DEPRECATED FOR NOW]
-
-Highly recommended, it runs all the attached microservices of this project.
-
-Run: `./gradlew runDockerCompose`
+Run: `./gradlew runComposite`
 
 ## Run unit test suite
 
@@ -55,17 +46,6 @@ Run: `./gradlew test`
 Self-generated documentation, spin locally (or visit remotely):
 ```
 localhost:8080/swagger-ui.html
-```
-
-```
-curl -X POST \
-  http://localhost:8080/api/v1/session \
-  -H 'content-type: application/json' \
-  -d '{
-	"players": [
-		{ "name": "hervito", "id": 1, "order": 1, "team": 1 }
-	]
-}'
 ```
 
 ## Deployment

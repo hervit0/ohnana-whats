@@ -109,26 +109,14 @@ task buildDocker(type: Docker, dependsOn: build) {
     }
 }
 
-task stopDocker(type: Exec) {
+task stopComposite(type: Exec) {
     workingDir "."
-    executable "./scripts/stop_docker.sh"
+    executable "./scripts/stop_composite.sh"
 }
 
-task runDocker(type: Exec) {
+task runComposite(type: Exec) {
     dependsOn clean, buildDocker
     workingDir "."
-    executable "./scripts/run_docker.sh"
-    finalizedBy stopDocker
-}
-
-task stopDockerCompose(type: Exec) {
-    workingDir "."
-    executable "./scripts/stop_docker_compose.sh"
-}
-
-task runDockerCompose(type: Exec) {
-    dependsOn clean, buildDocker
-    workingDir "."
-    executable "./scripts/run_docker_compose.sh"
-    finalizedBy stopDockerCompose
+    executable "./scripts/run_composite.sh"
+    finalizedBy stopComposite
 }
