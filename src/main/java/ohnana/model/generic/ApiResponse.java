@@ -9,12 +9,12 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 @Builder
-public class ApiResponse<T> {
+public class ApiResponse<T extends AttributeInterface<T>> {
     private ApiData<T> data;
 
-    public static <T extends AttributeInterface<T>> ApiResponse<T> createApiResponse(T classType) {
+    public static <T extends AttributeInterface<T>> ApiResponse<T> createApiResponse(T data) {
         return ApiResponse.<T>builder()
-                .data(ApiData.createData(classType))
+                .data(ApiData.createData(data))
                 .build();
     }
 }

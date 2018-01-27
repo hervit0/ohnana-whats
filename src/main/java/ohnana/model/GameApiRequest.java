@@ -7,7 +7,7 @@ import java.util.List;
 
 @Builder
 @Data
-public class SessionApiRequest {
+public class GameApiRequest {
     private List<Player> players;
 }
 

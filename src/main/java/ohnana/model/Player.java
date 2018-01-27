@@ -1,14 +1,13 @@
 package ohnana.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import ohnana.configuration.SwaggerStaticContent;
 import ohnana.model.generic.AttributeInterface;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Builder
 @Data
@@ -21,7 +20,7 @@ public class Player implements AttributeInterface<Player> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "player_id")
     @ApiModelProperty(notes = SwaggerStaticContent.PLAYER_ID)
-    private Long id;
+    private UUID id;
 
     @ApiModelProperty(notes = SwaggerStaticContent.PLAYER_NAME)
     private String name;
@@ -36,7 +35,7 @@ public class Player implements AttributeInterface<Player> {
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "session_id")
-    private Session session;
+    private Game game;
 
     @Override
     public boolean equals(Object object) {

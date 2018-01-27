@@ -5,13 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.UUID;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 @AllArgsConstructor
 @Data
 @Builder
-public class ApiData<T> {
+public class ApiData<T extends AttributeInterface<T>> {
     private String type;
-    private Long id;
+    private UUID id;
     private T attributes;
 
     public static <T extends AttributeInterface<T>> ApiData<T> createData(T classType) {

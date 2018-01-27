@@ -1,5 +1,6 @@
 package ohnana.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -10,8 +11,6 @@ import ohnana.configuration.SwaggerStaticContent;
 import ohnana.model.generic.AttributeInterface;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -19,31 +18,21 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "session")
-public class Session implements AttributeInterface<Session> {
+@Table(name = "game")
+public class Game implements AttributeInterface<Game> {
     @Id
-    @Column(name = "session_id")
+    @Column(name = "game_id")
     @ApiModelProperty(notes = SwaggerStaticContent.SESSION_ID)
     @JsonIgnore
     private UUID id;
 
-    @OneToMany(
-            mappedBy = "session",
-            fetch = FetchType.LAZY,
-            orphanRemoval = true
-    )
-    List<Game> games;
-
-    public void addGame(Game game) {
-        if (this.games == null){
-            this.games = new ArrayList<Game>();
-        }
-
-        this.games.add(game);
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "session_id")
+    @JsonBackReference
+    private Session session;
 
     @Override
     public String toString() {
-        return "Session";
+        return "Game";
     }
 }

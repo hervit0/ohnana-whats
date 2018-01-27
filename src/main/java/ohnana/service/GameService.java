@@ -4,7 +4,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Random;
 
-public class SessionService {
+public class GameService {
     public static int getSillyId() {
         return new Random().nextInt(12);
     }
