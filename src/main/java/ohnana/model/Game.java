@@ -22,12 +22,13 @@ import java.util.UUID;
 public class Game implements AttributeInterface<Game> {
     @Id
     @Column(name = "game_id")
-    @ApiModelProperty(notes = SwaggerStaticContent.SESSION_ID)
+    @ApiModelProperty(notes = SwaggerStaticContent.GAME_ID)
     @JsonIgnore
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "session_id")
+    @ApiModelProperty(notes = SwaggerStaticContent.GAME_SESSION)
     @JsonBackReference
     private Session session;
 

@@ -22,7 +22,8 @@ CREATE TABLE session (
   token VARCHAR(255) NOT NULL
 );
 
-INSERT INTO session VALUES('18003be5-092d-4f9a-827d-67295d5a9e83', 'dat token mate');
+INSERT INTO session VALUES('18003be5-092d-4f9a-827d-67295d5a9e83', 'dat token bro');
+INSERT INTO card VALUES('18003be5-092d-4f9a-827d-67295d5a9e83', 'Seeded from SQL');
 
 CREATE TABLE game (
     game_id UUID PRIMARY KEY,

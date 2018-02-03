@@ -27,6 +27,7 @@ public class Session implements AttributeInterface<Session> {
     @JsonIgnore
     private UUID id;
 
+    @ApiModelProperty(notes = SwaggerStaticContent.SESSION_GAMES)
     @OneToMany(
             mappedBy = "session",
             fetch = FetchType.LAZY,

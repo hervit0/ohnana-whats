@@ -23,8 +23,8 @@ jobs:
   include:
   - stage: Run unit tests
     script: "./gradlew test"
-  - stage: Run code quality tool
-    script: skip
+#  - stage: Run code quality tool
+#    script: skip
   - stage: Deploy to staging
     deploy:
       provider: heroku
