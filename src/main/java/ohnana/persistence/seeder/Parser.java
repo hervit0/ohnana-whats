@@ -15,7 +15,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class Parser {
-    public static final String RESOURCE = "static/cards.json";
+    private static final String RESOURCE = "static/cards.json";
 
     public List<Card> getCards() {
         JSONParser parser = new JSONParser();

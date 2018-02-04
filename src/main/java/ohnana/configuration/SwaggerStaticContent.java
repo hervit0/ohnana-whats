@@ -17,8 +17,10 @@ public class SwaggerStaticContent {
 //    Game model
     public static final String GAME_ID = "id of the game";
     public static final String GAME_SESSION = "session where the game belongs to";
+    public static final String GAME_CARDS = "cards associated to a game";
 
 //    Card model
     public static final String CARD_ID = "id of the card";
     public static final String CARD_NAME = "content of the card";
+    public static final String CARD_GAMES = "games associated to a card";
 }

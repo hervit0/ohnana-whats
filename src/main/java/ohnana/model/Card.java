@@ -1,5 +1,6 @@
 package ohnana.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,10 +9,8 @@ import lombok.NoArgsConstructor;
 import ohnana.configuration.SwaggerStaticContent;
 import ohnana.model.generic.AttributeInterface;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -30,6 +29,13 @@ public class Card implements AttributeInterface<Card> {
     @ApiModelProperty(notes = SwaggerStaticContent.CARD_NAME)
     private String name;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JsonBackReference
+    @JoinTable(name = "game_cards",
+            joinColumns = @JoinColumn(name = "card_id"),
+            inverseJoinColumns = @JoinColumn(name = "game_id"))
+    @ApiModelProperty(notes = SwaggerStaticContent.CARD_GAMES)
+    private List<Game> games;
 
     @Override
     public String toString() {

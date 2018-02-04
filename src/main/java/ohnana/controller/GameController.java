@@ -4,6 +4,7 @@ import ohnana.mapper.GameMapper;
 import ohnana.model.Game;
 import ohnana.model.GameApiRequest;
 import ohnana.model.generic.ApiResponse;
+import ohnana.persistence.CardRepository;
 import ohnana.persistence.GameRepository;
 import ohnana.persistence.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,12 @@ public class GameController extends BaseController {
     @Autowired
     public SessionRepository sessionRepository;
 
+    @Autowired
+    public CardRepository cardRepository;
+
     @RequestMapping(method = RequestMethod.POST, value = "/game")
     public ApiResponse<Game> create(@RequestBody Optional<GameApiRequest> request) {
-        Game game = GameMapper.map(request.orElse(null), sessionRepository);
+        Game game = GameMapper.map(request.orElse(null), sessionRepository, cardRepository);
         gameRepository.save(game);
         return ApiResponse.createApiResponse(game);
     }

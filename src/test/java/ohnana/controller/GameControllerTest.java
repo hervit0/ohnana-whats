@@ -1,5 +1,6 @@
 package ohnana.controller;
 
+import ohnana.factory.CardFactory;
 import ohnana.factory.GameApiRequestFactory;
 import ohnana.factory.GameFactory;
 import ohnana.factory.SessionFactory;
@@ -7,6 +8,7 @@ import ohnana.model.Game;
 import ohnana.model.GameApiRequest;
 import ohnana.model.Session;
 import ohnana.model.generic.ApiResponse;
+import ohnana.persistence.CardRepository;
 import ohnana.persistence.GameRepository;
 import ohnana.persistence.SessionRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,6 +36,9 @@ public class GameControllerTest
     @Mock
     SessionRepository sessionRepository;
 
+    @Mock
+    CardRepository cardRepository;
+
     @BeforeEach
     public void setUp()
     {
@@ -43,6 +48,7 @@ public class GameControllerTest
         when(gameRepository.save(any(Game.class))).thenReturn(mockGame);
         when(sessionRepository.findOne(UUID.fromString("18003be5-092d-4f9a-827d-67295d5a9e83")))
                 .thenReturn(mockSession);
+        when(cardRepository.getRandomCards()).thenReturn(CardFactory.createMultiple());
     }
 
     @Test

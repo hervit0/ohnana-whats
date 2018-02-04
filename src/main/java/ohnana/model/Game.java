@@ -11,6 +11,8 @@ import ohnana.configuration.SwaggerStaticContent;
 import ohnana.model.generic.AttributeInterface;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -31,6 +33,21 @@ public class Game implements AttributeInterface<Game> {
     @ApiModelProperty(notes = SwaggerStaticContent.GAME_SESSION)
     @JsonBackReference
     private Session session;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinTable(name = "game_cards",
+            joinColumns = @JoinColumn(name = "game_id"),
+            inverseJoinColumns = @JoinColumn(name = "card_id"))
+    @ApiModelProperty(notes = SwaggerStaticContent.GAME_CARDS)
+    private List<Card> cards;
+
+    public void addCard(Card card) {
+        if (this.cards == null) {
+            this.cards = new ArrayList<>();
+        }
+
+        this.cards.add(card);
+    }
 
     @Override
     public String toString() {
