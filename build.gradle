@@ -5,7 +5,8 @@ ext.versions = [
     junitPlatform: "1.0.2",
     junitJupiter: "5.0.2",
     apiGuardian: "1.0.0",
-    mockito: "1.8.4"
+    mockito: "1.8.4",
+    jsonSimple: "1.1.1"
 ]
 
 buildscript {
@@ -90,6 +91,7 @@ dependencies {
     compile "org.postgresql:postgresql"
     compile "io.sentry:sentry-spring:${versions.sentry}"
     compile "org.projectlombok:lombok:${versions.lombok}"
+    compile "com.googlecode.json-simple:json-simple:${versions.jsonSimple}"
 
     testCompile("org.mockito:mockito-all:${versions.mockito}")
     testCompile("org.junit.jupiter:junit-jupiter-api:${versions.junitJupiter}")
