@@ -1,5 +1,6 @@
 package ohnana.persistence.seeder;
 
+import ohnana.model.Card;
 import ohnana.persistence.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -22,7 +23,14 @@ public class Seeder {
         seedCardsTable();
     }
 
-    private void seedCardsTable() {
-        parser.getCards().forEach(card -> cardRepository.save(card));
+    public void seedCardsTable() {
+        parser.getCards()
+                .stream()
+                .filter(this::cardIsNotStored)
+                .forEach(card -> cardRepository.save(card));
+    }
+
+    private Boolean cardIsNotStored(Card card) {
+        return !cardRepository.checkCardPresence(card.getName());
     }
 }

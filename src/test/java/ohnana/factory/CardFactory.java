@@ -16,7 +16,7 @@ public class CardFactory {
     }
 
     public static List<Card> createMultiple(int numberCards) {
-        return IntStream.range(0, numberCards)
+        return IntStream.range(1, numberCards)
                 .boxed()
                 .map(CardFactory::create)
                 .collect(Collectors.toList());

@@ -16,4 +16,12 @@ public interface CardRepository extends JpaRepository<Card, UUID> {
             value = "SELECT * FROM card ORDER BY RANDOM() LIMIT 30"
     )
     List<Card> getRandomCards();
+
+    @Query(
+            nativeQuery = true,
+            value = "SELECT CAST(CASE WHEN COUNT(*) > 0 THEN 1 ELSE 0 END AS BIT)" +
+                    "FROM card WHERE name = ?1"
+    )
+    Boolean checkCardPresence(String name);
 }
+
