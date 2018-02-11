@@ -1,8 +1,12 @@
 defmodule Scraper.Parser do
-  # Parser should sanitize, e.g "Jean Dujardin (actor)" => "Jean Dujardin"
   def retrieve_names(body) do
     body
     |> get_in(["query", "categorymembers"])
-    |> Enum.map(&Map.get(&1, "title"))
+    |> Stream.map(&Map.get(&1, "title"))
+    |> Stream.map(&sanitize_title(&1))
+  end
+
+  defp sanitize_title(title) do
+    Regex.replace(~r/ *\([^)]*\) */, title, "")
   end
 end

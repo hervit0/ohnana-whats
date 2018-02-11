@@ -22,7 +22,8 @@ defmodule Scraper.MixProject do
     [
       # {:meeseeks, "~> 0.7.6"},
       {:httpoison, "~> 1.0"},
-      {:poison, "~> 3.1"}
+      {:poison, "~> 3.1"},
+      {:mock, "~> 0.3.0", only: :test}
     ]
   end
 end

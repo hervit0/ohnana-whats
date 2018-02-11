@@ -1,20 +1,20 @@
 defmodule Scraper do
-  alias Scraper.Names
+  alias Scraper.Categories
+
   @output_file "output/cards.json"
+  @categories %{
+    "French actresses" => "21st-century_French_actresses",
+    "French actors" => "21st-century_French_male_actors",
+    "British actresses" => "21st-century_English_actresses",
+    "British actors" => "21st-century_English_male_actors",
+    "British rock singers" => "English_rock_singers"
+  }
 
   def main(_args \\ []) do
     HTTPoison.start()
 
-    # Wikipedia nomenclatures (Advanced search > Category)
-    categories = [
-      "21st-century_French_actresses",
-      "21st-century_French_male_actors",
-      "21st-century_English_actresses",
-      "21st-century_English_male_actors"
-    ]
-
-    categories
-    |> Enum.reduce([], fn category, acc -> acc ++ Names.get_by(category) end)
+    @categories
+    |> Categories.get_names_by_categories()
     |> Poison.encode!()
     |> output()
   end

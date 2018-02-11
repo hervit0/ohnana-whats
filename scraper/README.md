@@ -17,17 +17,28 @@ Mainly inspired from [here](https://hackernoon.com/elixir-console-application-wi
 
 - Elixir dependencies: `mix deps.get`
 
-## Run
-
+## Run service
 ```
 mix escript.build && ./scraper
 ```
 
+## Run tests suite
+```
+mix test
+```
+
+## Wikipedia API
+
+Find some Wikipedia category nomenclatures (Advanced search > Category):
+- https://en.wikipedia.org/w/api.php?action=query&cmlimit=50&cmtitle=Category:21st-century_English_male_actors&format=json&list=categorymembers
+
+Display the content of a category:
+- https://en.wikipedia.org/w/index.php?title=Special:Search&profile=advanced&search=&fulltext=1
+
 ## Tasks and tech debts on this service
 
-- Write tests (proof of concept for now, don't judge me)
-- Sanitize inputs
 - Enhance the way categories are queries
+- Enable wiki list query and list parsing
 - Enable a smart triage on the names (alphabetical retrieval for now)
 
 ## Performances
@@ -37,7 +48,7 @@ herve:-> time ./scraper
 
 real	0m1.275s
 user	0m0.545s
-sys	0m0.379s
+sys     0m0.379s
 ```
 
-Not great, will scale it for multiple categories, by spawning proper Elixir processes.
+More than 1 second, that's not great. Will scale it for multiple categories, by spawning proper Elixir processes.
