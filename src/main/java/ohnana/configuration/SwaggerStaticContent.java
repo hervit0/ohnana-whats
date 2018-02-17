@@ -13,6 +13,7 @@ public class SwaggerStaticContent {
 //    Session model
     public static final String SESSION_ID = "id of the session";
     public static final String SESSION_GAMES = "games belonging to the session";
+    public static final String SESSION_TOKEN = "authorization token for a session";
 
 //    Game model
     public static final String GAME_ID = "id of the game";

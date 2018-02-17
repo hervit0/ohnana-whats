@@ -1,4 +1,6 @@
 spring:
+    authorization:
+        bearer: 123
     datasource:
         driver-class-name: org.postgresql.Driver
         initialize: true

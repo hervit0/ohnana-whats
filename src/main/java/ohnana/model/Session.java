@@ -35,6 +35,10 @@ public class Session implements AttributeInterface<Session> {
     )
     List<Game> games;
 
+    @Column(name = "token")
+    @ApiModelProperty(notes = SwaggerStaticContent.SESSION_TOKEN)
+    private String token;
+
     public void addGame(Game game) {
         if (this.games == null){
             this.games = new ArrayList<Game>();

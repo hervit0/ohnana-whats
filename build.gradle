@@ -1,12 +1,12 @@
 ext.versions = [
-    springfox: "2.7.0",
-    sentry: "1.6.3",
-    lombok: "1.16.18",
-    junitPlatform: "1.0.2",
-    junitJupiter: "5.0.2",
-    apiGuardian: "1.0.0",
-    mockito: "1.8.4",
-    jsonSimple: "1.1.1"
+        springfox    : "2.7.0",
+        sentry       : "1.6.3",
+        lombok       : "1.16.18",
+        junitPlatform: "1.0.2",
+        junitJupiter : "5.0.2",
+        apiGuardian  : "1.0.0",
+        mockito      : "1.8.4",
+        jsonSimple   : "1.1.1"
 ]
 
 buildscript {
@@ -57,7 +57,7 @@ mainClassName = "ohnana.Application"
 
 jar {
     baseName = "ohnana"
-    version =  "0.1.0"
+    version = "0.1.0"
 }
 
 compileTestJava {
@@ -93,11 +93,11 @@ dependencies {
     compile "org.projectlombok:lombok:${versions.lombok}"
     compile "com.googlecode.json-simple:json-simple:${versions.jsonSimple}"
 
-    testCompile("org.mockito:mockito-all:${versions.mockito}")
-    testCompile("org.junit.jupiter:junit-jupiter-api:${versions.junitJupiter}")
-    testCompileOnly("org.apiguardian:apiguardian-api:${versions.apiGuardian}")
-    testRuntime("org.junit.jupiter:junit-jupiter-engine:${versions.junitJupiter}")
-    testRuntime("org.junit.platform:junit-platform-launcher:${versions.junitPlatform}")
+    testCompile "org.mockito:mockito-all:${versions.mockito}"
+    testCompile "org.junit.jupiter:junit-jupiter-api:${versions.junitJupiter}"
+    testCompileOnly "org.apiguardian:apiguardian-api:${versions.apiGuardian}"
+    testRuntime "org.junit.jupiter:junit-jupiter-engine:${versions.junitJupiter}"
+    testRuntime "org.junit.platform:junit-platform-launcher:${versions.junitPlatform}"
 }
 
 task buildDocker(type: Docker, dependsOn: build) {

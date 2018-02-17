@@ -22,11 +22,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.when;
 
-public class GameControllerTest
-{
+public class GameControllerTest {
     @InjectMocks
     private GameController subject = new GameController();
 
@@ -40,8 +40,7 @@ public class GameControllerTest
     CardRepository cardRepository;
 
     @BeforeEach
-    public void setUp()
-    {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
         Game mockGame = GameFactory.createDefault();
         Session mockSession = SessionFactory.createDefault();
@@ -82,5 +81,6 @@ public class GameControllerTest
 
         // Assert
         assertEquals("Game", response.getData().getType());
+        assertNotNull(response.getData().getId());
     }
 }

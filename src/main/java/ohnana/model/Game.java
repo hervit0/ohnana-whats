@@ -3,10 +3,7 @@ package ohnana.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import ohnana.configuration.SwaggerStaticContent;
 import ohnana.model.generic.AttributeInterface;
 
@@ -25,7 +22,6 @@ public class Game implements AttributeInterface<Game> {
     @Id
     @Column(name = "game_id")
     @ApiModelProperty(notes = SwaggerStaticContent.GAME_ID)
-    @JsonIgnore
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
