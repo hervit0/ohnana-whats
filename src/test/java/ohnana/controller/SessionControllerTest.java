@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -31,6 +30,11 @@ public class SessionControllerTest {
     @Mock
     SessionRepository sessionRepository;
 
+    private static UUID sessionId = UUID.randomUUID();
+    private static Session session = SessionFactory.create(sessionId);
+    private static String correctAuthorization = null;
+    private static String incorrectAuthorization = "Wrong token";
+
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -41,11 +45,8 @@ public class SessionControllerTest {
     @Test
     @DisplayName(".create - returns an ApiResponse with 201 Created")
     public void create_givenCorrectAuthorization_returnsCreatedResponse() {
-        // Arrange
-        String authorization = null;
-
         // Act
-        ResponseEntity<ApiResponse<Session>> response = subject.create(authorization);
+        ResponseEntity<ApiResponse<Session>> response = subject.create(correctAuthorization);
 
         // Assert
         assertEquals("201", response.getStatusCode().toString());
@@ -58,11 +59,8 @@ public class SessionControllerTest {
     @Test
     @DisplayName(".create - returns an ApiResponse with 401 Unauthorized")
     public void create_givenIncorrectAuthorization_returnsUnauthorized() {
-        // Arrange
-        String authorization = "Incorrect bearer";
-
         // Act
-        ResponseEntity<ApiResponse<Session>> response = subject.create(authorization);
+        ResponseEntity<ApiResponse<Session>> response = subject.create(incorrectAuthorization);
 
         // Assert
         assertEquals("401", response.getStatusCode().toString());
@@ -76,14 +74,12 @@ public class SessionControllerTest {
     @DisplayName(".get - returns an ApiResponse with 200 OK")
     public void get_givenCorrectAuthorization_returnsOkResponse() {
         // Arrange
-        String authorization = null;
-        UUID sessionId = UUID.randomUUID();
         List<Game> games = GameFactory.createMultiple(3);
         Session session = SessionFactory.create(sessionId, games);
         when(sessionRepository.findOne(sessionId)).thenReturn(session);
 
         // Act
-        ResponseEntity<ApiResponse<Session>> response = subject.get(authorization, sessionId);
+        ResponseEntity<ApiResponse<Session>> response = subject.get(correctAuthorization, sessionId);
 
         // Assert
         assertEquals("200", response.getStatusCode().toString());
@@ -98,13 +94,10 @@ public class SessionControllerTest {
     @DisplayName(".get - returns an ApiResponse with 401 Unauthorized")
     public void get_givenIncorrectAuthorization_returnsUnauthorized() {
         // Arrange
-        String authorization = "wrong Bearer";
-        UUID sessionId = UUID.randomUUID();
-        Session session = SessionFactory.create(sessionId);
         when(sessionRepository.findOne(sessionId)).thenReturn(session);
 
         // Act
-        ResponseEntity<ApiResponse<Session>> response = subject.get(authorization, sessionId);
+        ResponseEntity<ApiResponse<Session>> response = subject.get(incorrectAuthorization, sessionId);
 
         // Assert
         assertEquals("401", response.getStatusCode().toString());
@@ -112,5 +105,22 @@ public class SessionControllerTest {
         ApiError apiError = response.getBody().getErrors().get(0);
         assertEquals("401", apiError.getStatus());
         assertEquals("Failed to pass authorization level", apiError.getTitle());
+    }
+
+    @Test
+    @DisplayName(".get - returns an ApiResponse with 404 Not Found")
+    public void get_givenUnexistingRecord_returnsNotFound() {
+        // Arrange
+        when(sessionRepository.findOne(sessionId)).thenReturn(null);
+
+        // Act
+        ResponseEntity<ApiResponse<Session>> response = subject.get(correctAuthorization, sessionId);
+
+        // Assert
+        assertEquals("404", response.getStatusCode().toString());
+
+        ApiError apiError = response.getBody().getErrors().get(0);
+        assertEquals("404", apiError.getStatus());
+        assertEquals("Session not found", apiError.getTitle());
     }
 }

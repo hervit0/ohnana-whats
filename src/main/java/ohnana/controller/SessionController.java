@@ -39,17 +39,25 @@ public class SessionController extends BaseController {
             @RequestHeader("Authorization") String authorization,
             @RequestHeader("Session-Id") UUID sessionId
     ) {
+        Session session = sessionRepository.findOne(sessionId);
+
         if (AuthorizationChecker.validate(authorization)) {
             return unauthorizedResponse();
+        } else if (session == null) {
+            return notFound("Session");
         }
 
-        Session session = sessionRepository.findOne(sessionId);
         return okResponse(session);
     }
 
     private ResponseEntity<ApiResponse<Session>> unauthorizedResponse() {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(ApiResponse.throwUnauthorized());
+    }
+
+    private ResponseEntity<ApiResponse<Session>> notFound(String resource) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ApiResponse.throwNotFound(resource));
     }
 
     private ResponseEntity<ApiResponse<Session>> createdResponse(Session session) {

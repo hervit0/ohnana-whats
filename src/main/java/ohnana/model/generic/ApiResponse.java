@@ -1,12 +1,9 @@
 package ohnana.model.generic;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import ohnana.model.Session;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,6 +25,17 @@ public class ApiResponse<T extends AttributeInterface<T>> {
         ApiError unauthorizedError = ApiError.builder()
                 .status("401")
                 .title("Failed to pass authorization level")
+                .build();
+
+        return ApiResponse.<T>builder()
+                .errors(Collections.singletonList(unauthorizedError))
+                .build();
+    }
+
+    public static <T extends AttributeInterface<T>> ApiResponse<T> throwNotFound(String resource) {
+        ApiError unauthorizedError = ApiError.builder()
+                .status("404")
+                .title(String.format("%s not found", resource))
                 .build();
 
         return ApiResponse.<T>builder()
