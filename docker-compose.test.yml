@@ -1,0 +1,29 @@
+version: '3'
+services:
+  ohnana-db-test:
+    image: 'postgres:9.6-alpine'
+    ports:
+      - '5435:5432'
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=springboot
+      - POSTGRES_DB=db_ohnana
+  ohnana-test:
+    build:
+      context: .
+      dockerfile: Dockerfile.bdd
+    depends_on:
+      - ohnana-db-test
+    ports:
+      - '5050:5050'
+    environment:
+      - PORT=5050
+  ohnana-bdd:
+    build:
+      context: .
+      dockerfile: Dockerfile.integration
+    depends_on:
+      - ohnana-test
+    links:
+      - ohnana-test
+    command: mix test

@@ -28,7 +28,7 @@ public class GameController extends BaseController {
     @Autowired
     public CardRepository cardRepository;
 
-    @RequestMapping(method = RequestMethod.POST, value = "/game")
+    @RequestMapping(method = RequestMethod.POST, value = "/game", produces = "application/json;charset=UTF-8")
     public ResponseEntity<ApiResponse<Game>> create(
             @RequestBody Optional<GameApiRequest> request,
             @RequestHeader("Authorization") String authorization,
@@ -47,7 +47,7 @@ public class GameController extends BaseController {
         return createdResponse(game);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/game/{gameId}")
+    @RequestMapping(method = RequestMethod.GET, value = "/game/{gameId}", produces = "application/json")
     public ResponseEntity<ApiResponse<Game>> get(
             @PathVariable("gameId") UUID gameId,
             @RequestHeader("Authorization") String authorization,

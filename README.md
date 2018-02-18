@@ -23,15 +23,15 @@ Ohnana, what's... ?
 
 ## Run locally
 
+**With Docker-compose**:
+
+Run: `./gradlew runComposite`
+
 **With Gradlew**:
 
 Run: `./gradlew clean build run`
 
 Run without test: `./gradlew clean build run -x test`
-
-**With Docker-compose**:
-
-Run: `./gradlew runComposite`
 
 ## Run unit test suite
 
@@ -39,7 +39,14 @@ Run: `./gradlew test`
 
 ## Run BDD test suite
 
-[WIP]
+(will be bundle into a script soon)
+```
+./gradlew clean build
+docker-compose -f docker-compose.test.yml build
+docker-compose -f docker-compose.test.yml up
+```
+
+And then in a separate tab: `(cd bdd/; mix test --trace)`
 
 ## Endpoints
 

@@ -1,0 +1,11 @@
+FROM elixir:1.6.1-alpine
+
+WORKDIR /usr/src/app
+
+RUN mix local.hex --force && mix local.rebar --force
+COPY bdd/mix.exs bdd/mix.lock /usr/src/app/
+RUN mix deps.get
+
+COPY bdd/./config /usr/src/app/config
+COPY bdd/. /usr/src/app
+RUN MIX_ENV=test mix deps.compile
