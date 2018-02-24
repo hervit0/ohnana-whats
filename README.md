@@ -39,14 +39,17 @@ Run: `./gradlew test`
 
 ## Run BDD test suite
 
-(will be bundle into a script soon)
+(will be bundled into a script soon)
 ```
 ./gradlew clean build
 docker-compose -f docker-compose.test.yml build
 docker-compose -f docker-compose.test.yml up
 ```
 
-And then in a separate tab: `(cd bdd/; mix test --trace)`
+And then in a separate tab:
+```
+(cd bdd/; mix deps.get && mix test --trace)
+```
 
 ## Endpoints
 

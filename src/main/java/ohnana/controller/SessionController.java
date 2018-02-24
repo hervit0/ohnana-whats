@@ -5,7 +5,6 @@ import ohnana.model.generic.ApiResponse;
 import ohnana.persistence.SessionRepository;
 import ohnana.service.AuthorizationChecker;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +21,7 @@ public class SessionController extends BaseController {
     @RequestMapping(method = RequestMethod.POST, value = "/session", produces = "application/json")
     public ResponseEntity<ApiResponse<Session>> create(@RequestHeader("Authorization") String authorization) {
         if (AuthorizationChecker.validate(authorization)) {
-            return unauthorizedResponse();
+            return ApiResponse.unauthorizedResponse();
         }
 
         Session session = Session.builder()
@@ -31,7 +30,7 @@ public class SessionController extends BaseController {
                 .build();
 
         sessionRepository.save(session);
-        return createdResponse(session);
+        return ApiResponse.createdResponse(session);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/session", produces = "application/json")
@@ -42,31 +41,12 @@ public class SessionController extends BaseController {
         Session session = sessionRepository.findOne(sessionId);
 
         if (AuthorizationChecker.validate(authorization)) {
-            return unauthorizedResponse();
+            return ApiResponse.unauthorizedResponse();
         } else if (session == null) {
-            return notFound("Session");
+            return ApiResponse.notFoundResponse("Session");
         }
 
-        return okResponse(session);
+        return ApiResponse.okResponse(session);
     }
 
-    private ResponseEntity<ApiResponse<Session>> unauthorizedResponse() {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(ApiResponse.throwUnauthorized());
-    }
-
-    private ResponseEntity<ApiResponse<Session>> notFound(String resource) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(ApiResponse.throwNotFound(resource));
-    }
-
-    private ResponseEntity<ApiResponse<Session>> createdResponse(Session session) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(ApiResponse.createApiResponse(session));
-    }
-
-    private ResponseEntity<ApiResponse<Session>> okResponse(Session session) {
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(ApiResponse.createApiResponse(session));
-    }
 }

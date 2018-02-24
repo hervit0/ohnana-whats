@@ -3,6 +3,8 @@ package ohnana.model.generic;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Collections;
 import java.util.List;
@@ -41,5 +43,21 @@ public class ApiResponse<T extends AttributeInterface<T>> {
         return ApiResponse.<T>builder()
                 .errors(Collections.singletonList(unauthorizedError))
                 .build();
+    }
+
+    public static <T extends AttributeInterface<T>> ResponseEntity<ApiResponse<T>> unauthorizedResponse() {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ApiResponse.throwUnauthorized());
+    }
+
+    public static <T extends AttributeInterface<T>> ResponseEntity<ApiResponse<T>> notFoundResponse(String resource) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponse.throwNotFound(resource));
+    }
+
+    public static <T extends AttributeInterface<T>> ResponseEntity<ApiResponse<T>> createdResponse(T resource) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.createApiResponse(resource));
+    }
+
+    public static <T extends AttributeInterface<T>> ResponseEntity<ApiResponse<T>> okResponse(T resource) {
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.createApiResponse(resource));
     }
 }

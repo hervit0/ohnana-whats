@@ -10,7 +10,6 @@ import ohnana.persistence.GameRepository;
 import ohnana.persistence.SessionRepository;
 import ohnana.service.AuthorizationChecker;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,14 +36,14 @@ public class GameController extends BaseController {
         Session session = sessionRepository.findOne(sessionId);
 
         if (AuthorizationChecker.validate(authorization)) {
-            return unauthorizedResponse();
+            return ApiResponse.unauthorizedResponse();
         } else if (session == null) {
-            return notFound("Session");
+            return ApiResponse.notFoundResponse("Session");
         }
 
         Game game = GameMapper.map(request.orElse(null), session, cardRepository);
         gameRepository.save(game);
-        return createdResponse(game);
+        return ApiResponse.createdResponse(game);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/game/{gameId}", produces = "application/json")
@@ -57,33 +56,13 @@ public class GameController extends BaseController {
         Game game = gameRepository.findOne(gameId);
 
         if (AuthorizationChecker.validate(authorization)) {
-            return unauthorizedResponse();
+            return ApiResponse.unauthorizedResponse();
         } else if (session == null) {
-            return notFound("Session");
+            return ApiResponse.notFoundResponse("Session");
         } else if (game == null) {
-            return notFound("Game");
+            return ApiResponse.notFoundResponse("Game");
         }
 
-        return okResponse(game);
-    }
-
-    private ResponseEntity<ApiResponse<Game>> unauthorizedResponse() {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(ApiResponse.throwUnauthorized());
-    }
-
-    private ResponseEntity<ApiResponse<Game>> notFound(String resource) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(ApiResponse.throwNotFound(resource));
-    }
-
-    private ResponseEntity<ApiResponse<Game>> createdResponse(Game game) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(ApiResponse.createApiResponse(game));
-    }
-
-    private ResponseEntity<ApiResponse<Game>> okResponse(Game game) {
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(ApiResponse.createApiResponse(game));
+        return ApiResponse.okResponse(game);
     }
 }

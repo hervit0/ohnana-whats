@@ -26,4 +26,5 @@ scraper-*.tar
 .elixir_ls/
 
 scraper
+output/
 
